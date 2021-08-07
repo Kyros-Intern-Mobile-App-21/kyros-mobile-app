@@ -1,8 +1,12 @@
 import 'dart:io';
+import 'package:file_picker/file_picker.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:kyros_app_mobile/api/firebase_api.dart';
 import 'package:kyros_app_mobile/models/assignment_model.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:path/path.dart';
 
 class HomeworkPage extends StatefulWidget {
 
@@ -27,6 +31,8 @@ class _HomeworkPageState extends State<HomeworkPage> {
 
   @override
   Widget build(BuildContext context) {
+
+
     return Scaffold(
       body: Container(
         color: Color(0xFFE9E9E9),
@@ -133,6 +139,7 @@ class _HomeworkPageState extends State<HomeworkPage> {
                           TextButton(
                             onPressed: () {
                               setState(() {
+                                uploadFile();
                                 widget.assignment.completed = true;
                                 widget.assignment.homeworkInput = _pickedImage;
                                 Navigator.pop(context);
@@ -204,5 +211,15 @@ class _HomeworkPageState extends State<HomeworkPage> {
       // ),
     );
   }
+  
+  Future uploadFile() async {
+    if(_pickedImage == null) return;
+
+    final fileName = basename(_pickedImage!.path);
+    final destination = 'files/$fileName';
+
+    FirebaseApi.uploadFile(destination, _pickedImage!);
+}
 
 }
+

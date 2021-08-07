@@ -34,6 +34,12 @@ dependencies:
   cloud_firestore: ^2.4.0
   firebase_core: ^1.4.0
 
+  #upload file to firebase
+  firebase_storage: ^8.0.3
+
+  #pick file
+  file_picker: ^3.0.1
+
 dev_dependencies:
   flutter_test:
     sdk: flutter
